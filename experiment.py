@@ -144,7 +144,7 @@ def find_match_place2(bus_coordinates, stops_coordinates):
     matching_stops = []
     for stop_coordinates, stop_name in stops_coordinates.items():
         if stop_coordinates == bus_coordinates:
-            matching_stops.append(stop_name)  # Dodaj pełną nazwę miejsca
+            matching_stops.append(stop_name)
     return matching_stops
 
 
@@ -154,14 +154,13 @@ def load_locations2(file_path):
         reader = csv.reader(csvfile)
         next(reader)
         for row in reader:
-            name = row[0]  # Pobierz tylko pierwsze 5 znaków nazwy zabytku
+            name = row[0]
             lat = round(float(row[1]), 3)
             lon = round(float(row[2]), 3)
             locations[(lat, lon)] = name
     return locations
 
 
-# prostokąty koło 500 metrów na 500 metrów
 def trip2(bus_folder, output_file, output_folder, building_csv, place_csv):
     buildings_path = os.path.join(output_folder, building_csv)
     places_path = os.path.join(output_folder, place_csv)
@@ -169,12 +168,8 @@ def trip2(bus_folder, output_file, output_folder, building_csv, place_csv):
     buildings = load_locations2(buildings_path)
     places = load_locations2(places_path)
     matching_results = defaultdict(set)
-    counter = 0
     for bus_file in os.listdir(bus_folder):
         if bus_file.endswith('.csv'):
-            counter = counter + 1
-            if counter == 2000:
-                break
             bus_file_path = os.path.join(bus_folder, bus_file)
 
             with open(bus_file_path, 'r', encoding='utf-8') as bus_csv:
