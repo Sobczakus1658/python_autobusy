@@ -106,6 +106,8 @@ def load_locations(file_path):
 
 
 def trip(b_tol, p_tol, bus_folder, folder, build_csv, place_csv, out_csv):
+    b_tol = float(b_tol)
+    p_tol = float(p_tol)
     buildings_path = os.path.join(folder, build_csv)
     places_path = os.path.join(folder, place_csv)
 
